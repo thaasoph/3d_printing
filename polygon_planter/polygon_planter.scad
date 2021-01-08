@@ -1,13 +1,13 @@
 $fn=100;
 
 // Height
-height = 120;
+height = 115;
 
 // Sides
 sides = 4;
 
 // Side length
-top_side_length    = 140;
+top_side_length    = 138;
 bottom_side_length = 95;
 
 // Radius
