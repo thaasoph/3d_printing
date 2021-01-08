@@ -11,8 +11,14 @@ top_side_length = 100;
 bottom_side_length = 80;
 
 // Radius
-top_radius = (top_side_length / 2) / sin( 360 / sides / 2 );
+top_radius    = (top_side_length    / 2) / sin( 360 / sides / 2 );
 bottom_radius = (bottom_side_length / 2) / sin( 360 / sides / 2 );
+
+// Drain hole diameter
+drain_hole_dia = 10;
+
+// Drain hole population density
+drain_hole_pop_density = 0.5;
 
 //Wall thickness
 wall_thickness = 1.6;
@@ -24,6 +30,13 @@ difference(){
     cylinder($fn = sides, r1 = bottom_radius, r2 = top_radius, h = height);
     translate([0,0,wall_thickness]){
         cylinder($fn = sides, r1 = bottom_radius - wall_thickness , r2 = top_radius - wall_thickness,h = height);
+    }
+   
+    drain_hole_path_r = bottom_inner_apothem * 0.75;
+    number_drain_holes = ( 2 * PI * drain_hole_path_r ) / drain_hole_dia * drain_hole_pop_density;
+    
+    for (i=[1:number_drain_holes])  {
+        translate([drain_hole_path_r*cos(i*(360/number_drain_holes)),drain_hole_path_r*sin(i*(360/number_drain_holes)),-0.1]) cylinder(d=drain_hole_dia, h=wall_thickness+0.2, $fn=20);
     }
 }
 
